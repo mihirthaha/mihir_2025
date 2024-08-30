@@ -5,5 +5,7 @@ description: Home Page
 hide: true
 ---
 
-My journey starts here. Mihir Thaha
+#H1 **Mihir Thaha's AP CSP Project**
+My CSP journey starts here.
+
 
