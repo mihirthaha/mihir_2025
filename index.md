@@ -37,6 +37,7 @@ canvas {
     border: 1px solid #000;
 }
 
+
 // script.js
 
 const canvas = document.getElementById('gameCanvas');
