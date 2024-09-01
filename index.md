@@ -8,143 +8,190 @@ hide: true
 ## **Mihir Thaha's AP CSP Project**
 My CSP journey starts here.
   
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <script src="script.js"></script>
-</body>
-</html>
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.*;
 
-/* style.css */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+public class SnakeGame extends JPanel implements ActionListener, KeyListener {
+    private class Tile {
+        int x;
+        int y;
 
-canvas {
-    border: 1px solid #000;
-}
+        Tile(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }  
 
+    int boardWidth;
+    int boardHeight;
+    int tileSize = 25;
+    
+    //snake
+    Tile snakeHead;
+    ArrayList<Tile> snakeBody;
 
-// script.js
+    //food
+    Tile food;
+    Random random;
 
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+    //game logic
+    int velocityX;
+    int velocityY;
+    Timer gameLoop;
 
-const box = 20;
-const canvasSize = 400;
-const canvasPixels = canvasSize / box;
+    boolean gameOver = false;
 
-let snake = [{ x: 9 * box, y: 9 * box }];
-let food = {
-    x: Math.floor(Math.random() * canvasPixels) * box,
-    y: Math.floor(Math.random() * canvasPixels) * box
-};
-let score = 0;
-let direction = 'RIGHT';
-let isChangingDirection = false;
+    SnakeGame(int boardWidth, int boardHeight) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        setPreferredSize(new Dimension(this.boardWidth, this.boardHeight));
+        setBackground(Color.black);
+        addKeyListener(this);
+        setFocusable(true);
 
-document.addEventListener('keydown', changeDirection);
+        snakeHead = new Tile(5, 5);
+        snakeBody = new ArrayList<Tile>();
 
-function changeDirection(event) {
-    if (isChangingDirection) return;
-    isChangingDirection = true;
+        food = new Tile(10, 10);
+        random = new Random();
+        placeFood();
 
-    const key = event.keyCode;
-    const goingUp = direction === 'UP';
-    const goingDown = direction === 'DOWN';
-    const goingRight = direction === 'RIGHT';
-    const goingLeft = direction === 'LEFT';
+        velocityX = 1;
+        velocityY = 0;
+        
+		//game timer
+		gameLoop = new Timer(100, this); //how long it takes to start timer, milliseconds gone between frames 
+        gameLoop.start();
+	}	
+    
+    public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		draw(g);
+	}
 
-    if (key === 37 && !goingRight) {
-        direction = 'LEFT';
+	public void draw(Graphics g) {
+        //Grid Lines
+        for(int i = 0; i < boardWidth/tileSize; i++) {
+            //(x1, y1, x2, y2)
+            g.drawLine(i*tileSize, 0, i*tileSize, boardHeight);
+            g.drawLine(0, i*tileSize, boardWidth, i*tileSize); 
+        }
+
+        //Food
+        g.setColor(Color.red);
+        // g.fillRect(food.x*tileSize, food.y*tileSize, tileSize, tileSize);
+        g.fill3DRect(food.x*tileSize, food.y*tileSize, tileSize, tileSize, true);
+
+        //Snake Head
+        g.setColor(Color.green);
+        // g.fillRect(snakeHead.x, snakeHead.y, tileSize, tileSize);
+        // g.fillRect(snakeHead.x*tileSize, snakeHead.y*tileSize, tileSize, tileSize);
+        g.fill3DRect(snakeHead.x*tileSize, snakeHead.y*tileSize, tileSize, tileSize, true);
+        
+        //Snake Body
+        for (int i = 0; i < snakeBody.size(); i++) {
+            Tile snakePart = snakeBody.get(i);
+            // g.fillRect(snakePart.x*tileSize, snakePart.y*tileSize, tileSize, tileSize);
+            g.fill3DRect(snakePart.x*tileSize, snakePart.y*tileSize, tileSize, tileSize, true);
+		}
+
+        //Score
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        if (gameOver) {
+            g.setColor(Color.red);
+            g.drawString("Game Over: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
+        }
+        else {
+            g.drawString("Score: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
+        }
+	}
+
+    public void placeFood(){
+        food.x = random.nextInt(boardWidth/tileSize);
+		food.y = random.nextInt(boardHeight/tileSize);
+	}
+
+    public void move() {
+        //eat food
+        if (collision(snakeHead, food)) {
+            snakeBody.add(new Tile(food.x, food.y));
+            placeFood();
+        }
+
+        //move snake body
+        for (int i = snakeBody.size()-1; i >= 0; i--) {
+            Tile snakePart = snakeBody.get(i);
+            if (i == 0) { //right before the head
+                snakePart.x = snakeHead.x;
+                snakePart.y = snakeHead.y;
+            }
+            else {
+                Tile prevSnakePart = snakeBody.get(i-1);
+                snakePart.x = prevSnakePart.x;
+                snakePart.y = prevSnakePart.y;
+            }
+        }
+        //move snake head
+        snakeHead.x += velocityX;
+        snakeHead.y += velocityY;
+
+        //game over conditions
+        for (int i = 0; i < snakeBody.size(); i++) {
+            Tile snakePart = snakeBody.get(i);
+
+            //collide with snake head
+            if (collision(snakeHead, snakePart)) {
+                gameOver = true;
+            }
+        }
+
+        if (snakeHead.x*tileSize < 0 || snakeHead.x*tileSize > boardWidth || //passed left border or right border
+            snakeHead.y*tileSize < 0 || snakeHead.y*tileSize > boardHeight ) { //passed top border or bottom border
+            gameOver = true;
+        }
     }
-    if (key === 38 && !goingDown) {
-        direction = 'UP';
-    }
-    if (key === 39 && !goingLeft) {
-        direction = 'RIGHT';
-    }
-    if (key === 40 && !goingUp) {
-        direction = 'DOWN';
-    }
-}
 
-function drawGame() {
-    if (hasGameEnded()) return;
-
-    isChangingDirection = false;
-
-    ctx.clearRect(0, 0, canvasSize, canvasSize);
-
-    drawFood();
-    moveSnake();
-    drawSnake();
-
-    setTimeout(drawGame, 100);
-}
-
-function drawSnake() {
-    ctx.fillStyle = 'green';
-    ctx.strokeStyle = 'darkgreen';
-
-    snake.forEach((snakePart) => {
-        ctx.fillRect(snakePart.x, snakePart.y, box, box);
-        ctx.strokeRect(snakePart.x, snakePart.y, box, box);
-    });
-}
-
-function drawFood() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(food.x, food.y, box, box);
-}
-
-function moveSnake() {
-    const head = { x: snake[0].x, y: snake[0].y };
-
-    if (direction === 'LEFT') head.x -= box;
-    if (direction === 'UP') head.y -= box;
-    if (direction === 'RIGHT') head.x += box;
-    if (direction === 'DOWN') head.y += box;
-
-    snake.unshift(head);
-
-    if (head.x === food.x && head.y === food.y) {
-        score += 1;
-        food = {
-            x: Math.floor(Math.random() * canvasPixels) * box,
-            y: Math.floor(Math.random() * canvasPixels) * box
-        };
-    } else {
-        snake.pop();
-    }
-}
-
-function hasGameEnded() {
-    for (let i = 4; i < snake.length; i++) {
-        const hasCollided = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
-        if (hasCollided) return true;
+    public boolean collision(Tile tile1, Tile tile2) {
+        return tile1.x == tile2.x && tile1.y == tile2.y;
     }
 
-    const hitLeftWall = snake[0].x < 0;
-    const hitRightWall = snake[0].x >= canvasSize;
-    const hitTopWall = snake[0].y < 0;
-    const hitBottomWall = snake[0].y >= canvasSize;
+    @Override
+    public void actionPerformed(ActionEvent e) { //called every x milliseconds by gameLoop timer
+        move();
+        repaint();
+        if (gameOver) {
+            gameLoop.stop();
+        }
+    }  
 
-    return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // System.out.println("KeyEvent: " + e.getKeyCode());
+        if (e.getKeyCode() == KeyEvent.VK_UP && velocityY != 1) {
+            velocityX = 0;
+            velocityY = -1;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN && velocityY != -1) {
+            velocityX = 0;
+            velocityY = 1;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT && velocityX != 1) {
+            velocityX = -1;
+            velocityY = 0;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_RIGHT && velocityX != -1) {
+            velocityX = 1;
+            velocityY = 0;
+        }
+    }
+
+    //not needed
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }
-
-drawGame();
-
