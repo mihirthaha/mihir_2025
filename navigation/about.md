@@ -20,9 +20,9 @@ permalink: /about/
         <li>🌍 <strong>Location:</strong> California, USA</li>
     </ul>
     <p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" alt="California Flag" width="40">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" alt="California Flag" width="200">
         <br>
-        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag" width="40">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag" width="200">
     </p>
 </body>
 </html>
