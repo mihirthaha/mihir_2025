@@ -9,6 +9,19 @@ permalink: /about/
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Mihir Thaha</title>
+    <style>
+        .flag-container {
+            display: flex;
+            align-items: center;
+        }
+        .flag {
+            text-align: center;
+            margin-right: 20px;
+        }
+        .flag img {
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
     <h1>About Me</h1>
@@ -19,10 +32,22 @@ permalink: /about/
         <li>🎓 <strong>Education:</strong> Sophomore at Del Norte High School</li>
         <li>🌍 <strong>Location:</strong> California, USA</li>
     </ul>
-    <p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" alt="California Flag" width="200">
-        <br>
-        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag" width="200">
-    </p>
+    <div class="flag-container">
+        <div class="flag" id="californiaFlag">
+            <p>California</p>
+        </div>
+        <div class="flag" id="indiaFlag">
+            <p>India</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to dynamically insert image URLs
+        var californiaFlagUrl = "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg";
+        var indiaFlagUrl = "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg";
+
+        document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
+        document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
+    </script>
 </body>
 </html>
