@@ -4,6 +4,7 @@ title: About me
 permalink: /about/
 ---
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,7 @@ permalink: /about/
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+            background: linear-gradient(to bottom right, #b3b3b3, #4d4d4d);
             color: white;
         }
 
@@ -70,10 +71,4 @@ permalink: /about/
     <script>
         // JavaScript to dynamically insert image URLs
         var californiaFlagUrl = "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg";
-        var indiaFlagUrl = "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg";
-
-        document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
-        document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
-    </script>
-</body>
-</html>
+       
