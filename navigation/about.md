@@ -10,16 +10,42 @@ permalink: /about/
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Mihir Thaha</title>
     <style>
+        /* Gradient background styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+            color: white;
+        }
+
+        /* Styling for the flag container */
         .flag-container {
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-top: 50px;
         }
+
         .flag {
             text-align: center;
             margin-right: 20px;
         }
+
         .flag img {
             width: 200px;
+        }
+
+        /* Centering and text styling */
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            line-height: 1.8;
         }
     </style>
 </head>
