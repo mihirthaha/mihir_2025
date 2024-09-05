@@ -1,9 +1,9 @@
 ---
 layout: page
-title: About
+title: About me
 permalink: /about/
 ---
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
