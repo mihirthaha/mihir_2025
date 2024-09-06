@@ -5,33 +5,78 @@ permalink: /about/
 ---
 
 
-<h1>AP Computer Science Principles</h1>
-
-**Tarun Rayavarapu**
-
-**Period 2**
-
-
-<h2>About Me/Why I Took This Class:</h2>
-
-
-My name is Tarun Rayavarapu and I am 15 years old. I took this class because both of my parents are software engineers, and very much enjoy their time in it. I also took this class because I want to learn coding and coding is the future of our world. I'm really interested in technology and thought this class would give me a good foundation for understanding it better. Also, I know that computer science is an important skill for many careers, so I thought it would be useful for my future. Lastly, I wanted to challenge myself with a more advanced class like this class to see if I could handle it.
-![Alt text](https://i.insider.com/601441dd6dfbe10018e00c25?width=1136&format=jpeg)
+<style>
+    /* Gradient background styling */
+    html {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #b3b3b3, #4d4d4d);
+        color: white;
+    }
 
 
-<h2>What I Enjoy</h2>
-
-![Alt text](https://i.etsystatic.com/6397925/r/il/b0f6c7/894698406/il_570xN.894698406_927u.jpg)
-
-![Alt text](https://i.etsystatic.com/6397925/r/il/825ef9/886345972/il_570xN.886345972_m7nf.jpg)
-
-![Alt text](https://www.pngkey.com/png/detail/403-4030326_japan-food-png-japanese-dinner-png.png)
-
-
-
-<
+    /* Styling for the flag container */
+    .flag-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+    }
 
 
-<h2>My Background:</h2>
+    .flag {
+        text-align: center;
+        margin-right: 20px;
+    }
 
-My family from both my Mom and my Dad side are from India, making me an Indian descendant. There are many flags I associate with, including:
+
+    .flag img {
+        width: 200px;
+    }
+
+
+    /* Centering and text styling */
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+
+    ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        line-height: 1.8;
+    }
+</style>
+<ul>
+    <li>👋 Hi, I'm <strong>Mihir Thaha</strong>!</li>
+    <li>🇮🇳 <strong>Nationality:</strong> Indian</li>
+    <li>🎂 <strong>Age:</strong> 15 years old</li>
+    <li>🎓 <strong>Education:</strong> Sophomore at Del Norte High School</li>
+    <li>🌍 <strong>Location:</strong> California, USA</li>
+</ul>
+
+
+<div class="flag-container">
+    <div class="flag" id="californiaFlag">
+        <p>California</p>
+    </div>
+    <div class="flag" id="indiaFlag">
+        <p>India</p>
+    </div>
+</div>
+
+
+<script>
+     // JavaScript to dynamically insert image URLs
+    var californiaFlagUrl = "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg";
+    var indiaFlagUrl = "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg";
+
+
+    document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
+    document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
+</script>
+
+
+
