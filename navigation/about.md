@@ -57,6 +57,23 @@ permalink: /about/
     <li>🌍 <strong>Location:</strong> California, USA</li>
 </ul>
 
+# About Me
+
+👋 Hi, I'm Mihir Thaha!
+
+I’m currently a sophomore at Del Norte High School in California, USA. Originally from India, I love learning about diverse cultures and languages, which has shaped how I approach life and learning.
+
+### My Interests
+I'm passionate about technology, especially in areas like coding, web development, and engineering. I’ve been learning Python and JavaScript, working on small projects that help me build my skills and understanding of how software works.
+
+### Hobbies
+In my free time, you’ll probably find me playing chess, building things with my robotics team, or on the basketball court. I’m also a big fan of video games and enjoy following the latest developments in the gaming world.
+
+### Future Goals
+I aim to study computer science in college and work in the tech industry as a software engineer. I’m fascinated by the potential of AI and data science to change the world and hope to be part of that transformation.
+
+### Connect With Me
+Feel free to check out my [GitHub](https://github.com/yourusername) for my latest projects, or contact me at [your.email@example.com](mailto:your.email@example.com).
 
 <div class="flag-container">
     <div class="flag" id="californiaFlag">
