@@ -51,8 +51,10 @@ permalink: /about/
     </style>
 </head>
 <body>
-    <h1>About Me</h1>
-    <p>👋 Hi, I'm <strong>Mihir Thaha</strong>!</p>
+    <h1>About Me</h1>`
+    <ul>
+    <ul>
+         <li>👋 Hi, I'm <strong>Mihir Thaha</strong>!</li>
     <ul>
         <li>🇮🇳 <strong>Nationality:</strong> Indian</li>
         <li>🎂 <strong>Age:</strong> 15 years old</li>
