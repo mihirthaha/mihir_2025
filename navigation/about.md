@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About me
+title: About 
 permalink: /about/
 ---
 
@@ -43,9 +43,6 @@ permalink: /about/
         line-height: 1.8;
     }
 </style>
-
-<h1>About Me</h1>
-
 <ul>
     <li>👋 Hi, I'm <strong>Mihir Thaha</strong>!</li>
     <li>🇮🇳 <strong>Nationality:</strong> Indian</li>
