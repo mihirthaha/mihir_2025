@@ -1,5 +1,10 @@
-.post-list > li > div {
-    box-shadow: none !important;
-    background-color: #2c3e50;
-    border: none !important;
-}
+// Mixin for background color
+@mixin background-color($color) {
+    background-color: $color;
+  }
+  
+  // Apply the mixin to the body
+  body {
+    @include background-color(rgb(230, 173, 221));
+  }
+  
