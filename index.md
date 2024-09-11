@@ -5,7 +5,7 @@ description: Home Page
 hide: true
 
 ---
-### **Mihir Thaha's AP CSP Project ##
+### **Mihir Thaha's AP CSP Project ###
 
 ```python
 # Install the emoji library if you haven't already
