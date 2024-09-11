@@ -5,10 +5,7 @@ description: Home Page
 hide: true
 
 ---
-## **Mihir Thaha's AP CSP Project
-## Adding Emoji in Python Code
-
-To display emojis using Python, you can use the `emoji` library. Here's an example:
+### **Mihir Thaha's AP CSP Project ##
 
 ```python
 # Install the emoji library if you haven't already
