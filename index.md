@@ -17,4 +17,4 @@ To display emojis using Python, you can use the `emoji` library. Here's an examp
 from emoji import emojize
 
 # Print an emoji message
-print(emojize("Python is awesome! :snake: :thumbs_up: :grinning_face:"))
+print(emojize("Python is awesome! :snake: :thumbs_up:"))
