@@ -89,10 +89,18 @@ Feel free to check out my [GitHub](https://github.com/mihirthaha) for my latest 
     var californiaFlagUrl = "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg";
     var indiaFlagUrl = "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg";
 
+    var mihirthahaUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBaFLceBzvsI07e_pc9bU-FPtBCrpwlBBHSw&s";
+
+
 
     document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
     document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
+    document.getElementById('mihirthaha').innerHTML = '<img src="'mihirthahaUrl + ' " alt="mihirthaha"><p> Me as a kid </p>';
+
+
+    
 </script>
+
 
 
 
