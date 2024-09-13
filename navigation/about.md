@@ -80,12 +80,17 @@ Feel free to check out my [GitHub](https://github.com/mihirthaha) for my latest 
 </div>
 
 <script>
-    // JavaScript to dynamically insert image URLs using baseurl
+    // JavaScript to dynamically insert image URLs using baseurl or a relative path
     var californiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_California.svg";
     var indiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_India.svg";
-    var Mihirt = "{{site.baseurl }}/assets/imagess/
 
-    document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
-    document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
-    document.getElementById('mihirthaha').innerHTML = '<img src=" ' + Mihirt + ' " alt=MihirT"><p>Me as a kid</p>
+    var californiaFlagImg = document.createElement('img');
+    californiaFlagImg.src = californiaFlagUrl;
+    californiaFlagImg.alt = "California Flag";
+    document.getElementById('californiaFlag').prepend(californiaFlagImg);
+
+    var indiaFlagImg = document.createElement('img');
+    indiaFlagImg.src = indiaFlagUrl;
+    indiaFlagImg.alt = "Indian Flag";
+    document.getElementById('indiaFlag').prepend(indiaFlagImg);
 </script>
