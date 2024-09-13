@@ -4,7 +4,6 @@ title: About
 permalink: /about/
 ---
 
-
 <style>
     /* Gradient background styling */
     html {
@@ -14,7 +13,6 @@ permalink: /about/
         color: white;
     }
 
-
     /* Styling for the flag container */
     .flag-container {
         display: flex;
@@ -23,24 +21,20 @@ permalink: /about/
         margin-top: 50px;
     }
 
-
     .flag {
         text-align: center;
         margin-right: 20px;
     }
 
-
     .flag img {
         width: 200px;
     }
-
 
     /* Centering and text styling */
     h1 {
         text-align: center;
         margin-top: 30px;
     }
-
 
     ul {
         list-style: none;
@@ -49,6 +43,7 @@ permalink: /about/
         line-height: 1.8;
     }
 </style>
+
 <ul>
     <li>👋 Hi, I'm <strong>Mihir Thaha</strong>!</li>
     <li>🇮🇳 <strong>Nationality:</strong> Indian</li>
@@ -68,6 +63,7 @@ I'm passionate about technology, especially in areas like coding, web developmen
 
 ### Hobbies
 I love playing badminton and basketball, as well as going to the gym. I also like reading and watching YouTube in my freetime.
+
 ### Future Goals
 In this course, I expect to build a functional website and expand my knowledge on computer science. I also want to have fun while coding.
 
@@ -83,24 +79,13 @@ Feel free to check out my [GitHub](https://github.com/mihirthaha) for my latest 
     </div>
 </div>
 
-
 <script>
-     // JavaScript to dynamically insert image URLs
-    var californiaFlagUrl = "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg";
-    var indiaFlagUrl = "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg";
-
-    var mihirthahaUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBaFLceBzvsI07e_pc9bU-FPtBCrpwlBBHSw&s";
-
-
+    // JavaScript to dynamically insert image URLs using baseurl
+    var californiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_California.svg";
+    var indiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_India.svg";
+    var Mihirt = "{{site.baseurl }}/assets/imagess/
 
     document.getElementById('californiaFlag').innerHTML = '<img src="' + californiaFlagUrl + '" alt="California Flag"><p>California</p>';
     document.getElementById('indiaFlag').innerHTML = '<img src="' + indiaFlagUrl + '" alt="Indian Flag"><p>India</p>';
-    document.getElementById('mihirthaha').innerHTML = '<img src="'mihirthahaUrl + ' " alt="mihirthaha"><p> Me as a kid </p>';
-
-
-    
+    document.getElementById('mihirthaha').innerHTML = '<img src=" ' + Mihirt + ' " alt=MihirT"><p>Me as a kid</p>
 </script>
-
-
-
-
