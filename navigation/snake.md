@@ -1,11 +1,206 @@
 ---
 layout: post
-title: Snake game
+title: Games Page
 comments: false
-permalink: /Ideas/
+permalink: /games/
 ---
 
 <style>
+    body {
+        /* General body style */
+    }
+
+    .wrap {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    canvas {
+        display: none;
+        border-style: solid;
+        border-width: 10px;
+        border-color: #FFFFFF;
+    }
+
+    canvas:focus {
+        outline: none;
+    }
+
+    /* All screens style */
+    #gameover p, #setting p, #menu p, #tic-tac-toe p {
+        font-size: 20px;
+    }
+
+    #gameover a, #setting a, #menu a, #tic-tac-toe a {
+        font-size: 30px;
+        display: block;
+    }
+
+    #gameover a:hover, #setting a:hover, #menu a:hover, #tic-tac-toe a:hover {
+        cursor: pointer;
+    }
+
+    #gameover a:hover::before, #setting a:hover::before, #menu a:hover::before, #tic-tac-toe a:hover::before {
+        content: ">";
+        margin-right: 10px;
+    }
+
+    #menu, #tic-tac-toe {
+        display: block;
+    }
+
+    #gameover, #setting {
+        display: none;
+    }
+
+    #setting input {
+        display: none;
+    }
+
+    #setting label {
+        cursor: pointer;
+    }
+
+    #setting input:checked + label {
+        background-color: #FFF;
+        color: #000;
+    }
+
+    .tic-tac-toe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        gap: 5px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .tic-tac-toe-cell {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+        text-align: center;
+        line-height: 100px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+
+    .tic-tac-toe-cell:hover {
+        background-color: #ddd;
+    }
+</style>
+
+<h2>Games</h2>
+<div class="container">
+    <header class="pb-3 mb-4 border-bottom border-primary text-dark">
+        <p class="fs-4">Select a game to play:</p>
+    </header>
+
+    <!-- Main Menu for Game Selection -->
+    <div id="menu" class="py-4 text-light">
+        <p>Choose a game:</p>
+        <a id="play_snake" class="link-alert">Snake Game</a>
+        <a id="play_tic_tac_toe" class="link-alert">Tic-Tac-Toe</a>
+    </div>
+
+    <!-- Snake Game Section (Existing Snake Game Code) -->
+    <div id="snake_section" style="display: none;">
+        <header class="pb-3 mb-4 border-bottom border-primary text-dark">
+            <p class="fs-4">Snake Score: <span id="score_value">0</span></p>
+        </header>
+        <canvas id="snake" class="wrap" width="320" height="320" tabindex="1"></canvas>
+        <!-- Other Snake elements, settings, and scripts go here (same as in the Snake game code) -->
+    </div>
+
+    <!-- Tic-Tac-Toe Game Section -->
+    <div id="tic-tac-toe" style="display: none;">
+        <header class="pb-3 mb-4 border-bottom border-primary text-dark">
+            <p class="fs-4">Tic-Tac-Toe</p>
+        </header>
+        <div class="tic-tac-toe-grid">
+            <div class="tic-tac-toe-cell" data-cell="0"></div>
+            <div class="tic-tac-toe-cell" data-cell="1"></div>
+            <div class="tic-tac-toe-cell" data-cell="2"></div>
+            <div class="tic-tac-toe-cell" data-cell="3"></div>
+            <div class="tic-tac-toe-cell" data-cell="4"></div>
+            <div class="tic-tac-toe-cell" data-cell="5"></div>
+            <div class="tic-tac-toe-cell" data-cell="6"></div>
+            <div class="tic-tac-toe-cell" data-cell="7"></div>
+            <div class="tic-tac-toe-cell" data-cell="8"></div>
+        </div>
+        <p id="game_status"></p>
+        <a id="restart_tic_tac_toe" class="link-alert">Restart Tic-Tac-Toe</a>
+    </div>
+</div>
+
+<script>
+    // Game Selection Logic
+    document.getElementById("play_snake").onclick = function () {
+        document.getElementById("menu").style.display = "none";
+        document.getElementById("snake_section").style.display = "block";
+    };
+
+    document.getElementById("play_tic_tac_toe").onclick = function () {
+        document.getElementById("menu").style.display = "none";
+        document.getElementById("tic-tac-toe").style.display = "block";
+    };
+
+    // Tic-Tac-Toe Logic
+    const cells = document.querySelectorAll('.tic-tac-toe-cell');
+    const statusText = document.getElementById('game_status');
+    let currentPlayer = 'X';
+    let gameActive = true;
+    let board = ['', '', '', '', '', '', '', '', ''];
+
+    function checkWinner() {
+        const winConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (let i = 0; i < winConditions.length; i++) {
+            const [a, b, c] = winConditions[i];
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a];
+            }
+        }
+        return board.includes('') ? null : 'Draw';
+    }
+
+    function handleClick(e) {
+        const cellIndex = e.target.getAttribute('data-cell');
+        if (board[cellIndex] !== '' || !gameActive) return;
+        board[cellIndex] = currentPlayer;
+        e.target.textContent = currentPlayer;
+        const winner = checkWinner();
+        if (winner) {
+            statusText.textContent = winner === 'Draw' ? "It's a draw!" : `${winner} wins!`;
+            gameActive = false;
+        } else {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+    }
+
+    function restartGame() {
+        board = ['', '', '', '', '', '', '', '', ''];
+        currentPlayer = 'X';
+        gameActive = true;
+        cells.forEach(cell => cell.textContent = '');
+        statusText.textContent = '';
+    }
+
+    cells.forEach(cell => cell.addEventListener('click', handleClick));
+    document.getElementById('restart_tic_tac_toe').addEventListener('click', restartGame);
+
+    // Include the existing Snake game script here (same as the Snake game code provided)
+    <style>
 
     body{
     }
