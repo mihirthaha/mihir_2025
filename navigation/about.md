@@ -70,27 +70,14 @@ In this course, I expect to build a functional website and expand my knowledge o
 ### Connect With Me
 Feel free to check out my [GitHub](https://github.com/mihirthaha) for my latest projects, or contact me at [mihirthaha@gmail.com](mailto:mihirthaha@gmail.com).
 
+<!-- Flag Container -->
 <div class="flag-container">
-    <div class="flag" id="californiaFlag">
+    <div class="flag">
         <p>California</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg" alt="California Flag">
     </div>
-    <div class="flag" id="indiaFlag">
+    <div class="flag">
         <p>India</p>
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
     </div>
 </div>
-
-<script>
-    // JavaScript to dynamically insert image URLs using baseurl or a relative path
-    var californiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_California.svg";
-    var indiaFlagUrl = "{{ site.baseurl }}/assets/images/Flag_of_India.svg";
-
-    var californiaFlagImg = document.createElement('img');
-    californiaFlagImg.src = californiaFlagUrl;
-    californiaFlagImg.alt = "California Flag";
-    document.getElementById('californiaFlag').prepend(californiaFlagImg);
-
-    var indiaFlagImg = document.createElement('img');
-    indiaFlagImg.src = indiaFlagUrl;
-    indiaFlagImg.alt = "Indian Flag";
-    document.getElementById('indiaFlag').prepend(indiaFlagImg);
-</script>
