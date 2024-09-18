@@ -119,114 +119,118 @@ permalink: /snake/
 </div>
 
 <script>
-    (function(){
-        const canvas = document.getElementById("snake");
-        const ctx = canvas.getContext("2d");
-        const SCREEN_SNAKE = 0;
-        const screen_snake = document.getElementById("snake");
-        const ele_score = document.getElementById("score_value");
-        const speed_setting = document.getElementsByName("speed");
-        const wall_setting = document.getElementsByName("wall");
+(function(){
+    const canvas = document.getElementById("snake");
+    const ctx = canvas.getContext("2d");
+    const BLOCK = 10;
+    let snake = [];
+    let food = {x: 0, y: 0};
+    let score = 0;
+    let snakeSpeed = 150;
+    let snakeDir = 1; // 0: Up, 1: Right, 2: Down, 3: Left
+    let nextDir = snakeDir;
+    let wall = 1;
+    let gameLoop;
 
-        const SCREEN_MENU = -1, SCREEN_GAME_OVER = 1, SCREEN_SETTING = 2;
-        const screen_menu = document.getElementById("menu");
-        const screen_game_over = document.getElementById("gameover");
-        const screen_setting = document.getElementById("setting");
+    function initGame() {
+        snake = [{x: 8, y: 8}, {x: 7, y: 8}, {x: 6, y: 8}];
+        score = 0;
+        nextDir = 1;
+        placeFood();
+        gameLoop = setInterval(updateGame, snakeSpeed);
+    }
 
-        const button_new_game = document.getElementById("new_game");
-        const button_new_game1 = document.getElementById("new_game1");
-        const button_new_game2 = document.getElementById("new_game2");
-        const button_setting_menu = document.getElementById("setting_menu");
-        const button_setting_menu1 = document.getElementById("setting_menu1");
+    function placeFood() {
+        food.x = Math.floor(Math.random() * (canvas.width / BLOCK));
+        food.y = Math.floor(Math.random() * (canvas.height / BLOCK));
+    }
 
-        const BLOCK = 10;
-        let SCREEN = SCREEN_MENU;
-        let snake;
-        let snake_dir;
-        let snake_next_dir;
-        let snake_speed;
-        let food = {x: 0, y: 0};
-        let score;
-        let wall;
+    function updateGame() {
+        // Update snake direction
+        snakeDir = nextDir;
 
-        let showScreen = function(screen_opt) {
-            SCREEN = screen_opt;
-            switch(screen_opt) {
-                case SCREEN_SNAKE:
-                    screen_snake.style.display = "block";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "none";
-                    screen_game_over.style.display = "none";
-                    break;
-                case SCREEN_GAME_OVER:
-                    screen_snake.style.display = "block";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "none";
-                    screen_game_over.style.display = "block";
-                    break;
-                case SCREEN_SETTING:
-                    screen_snake.style.display = "none";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "block";
-                    screen_game_over.style.display = "none";
-                    break;
+        // Get the new head position
+        const head = {x: snake[0].x, y: snake[0].y};
+        if (snakeDir === 0) head.y--;
+        if (snakeDir === 1) head.x++;
+        if (snakeDir === 2) head.y++;
+        if (snakeDir === 3) head.x--;
+
+        // Check collisions with walls
+        if (wall === 1) {
+            if (head.x < 0 || head.x >= canvas.width / BLOCK || head.y < 0 || head.y >= canvas.height / BLOCK) {
+                gameOver();
+                return;
+            }
+        } else {
+            head.x = (head.x + canvas.width / BLOCK) % (canvas.width / BLOCK);
+            head.y = (head.y + canvas.height / BLOCK) % (canvas.height / BLOCK);
+        }
+
+        // Check for collision with itself
+        for (let i = 0; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                gameOver();
+                return;
             }
         }
 
-        window.onload = function() {
-            button_new_game.onclick = function() { newGame(); };
-            button_new_game1.onclick = function() { newGame(); };
-            button_new_game2.onclick = function() { newGame(); };
-            button_setting_menu.onclick = function() { showScreen(SCREEN_SETTING); };
-            button_setting_menu1.onclick = function() { showScreen(SCREEN_SETTING); };
+        // Move snake by adding new head
+        snake.unshift(head);
 
-            setSnakeSpeed(150);
-            for (let i = 0; i < speed_setting.length; i++) {
-                speed_setting[i].addEventListener("click", function() {
-                    for (let i = 0; i < speed_setting.length; i++) {
-                        if (speed_setting[i].checked) {
-                            setSnakeSpeed(speed_setting[i].value);
-                        }
-                    }
-                });
-            }
-
-            setWall(1);
-            for (let i = 0; i < wall_setting.length; i++) {
-                wall_setting[i].addEventListener("click", function() {
-                    for (let i = 0; i < wall_setting.length; i++) {
-                        if (wall_setting[i].checked) {
-                            setWall(wall_setting[i].value);
-                        }
-                    }
-                });
-            }
-
-            window.addEventListener("keydown", function(evt) {
-                if (evt.code === "Space" && SCREEN !== SCREEN_SNAKE) newGame();
-            }, true);
-        }
-
-        let mainLoop = function() {
-            let _x = snake[0].x;
-            let _y = snake[0].y;
-            snake_dir = snake_next_dir;
-            switch(snake_dir) {
-                case 0: _y--; break;
-                case 1: _x++; break;
-                case 2: _y++; break;
-                case 3: _x--; break;
-            }
+        // Check for food collision
+        if (head.x === food.x && head.y === food.y) {
+            score++;
+            placeFood();
+        } else {
             snake.pop();
-            snake.unshift({x: _x, y: _y});
+        }
 
-            if (wall === 1) {
-                if (snake[0].x < 0 || snake[0].x === canvas.width / BLOCK || snake[0].y < 0 || snake[0].y === canvas.height / BLOCK) {
-                    showScreen(SCREEN_GAME_OVER);
-                    return;
-                }
-            } else {
-                for (let i = 0, x = snake.length; i < x; i++) {
-                    if (snake[i].x < 0) snake[i].x = snake[i].x + (canvas.width / BLOCK);
-                    if (snake[i].x === canvas.width / BLOCK) snake[i].x = snake[i].x - (canvas.width / BLOCK);
-                    if (snake[i].y < 0) snake[i].y =
+        drawGame();
+    }
+
+    function drawGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw snake
+        ctx.fillStyle = "green";
+        for (let i = 0; i < snake.length; i++) {
+            ctx.fillRect(snake[i].x * BLOCK, snake[i].y * BLOCK, BLOCK, BLOCK);
+        }
+
+        // Draw food
+        ctx.fillStyle = "red";
+        ctx.fillRect(food.x * BLOCK, food.y * BLOCK, BLOCK, BLOCK);
+
+        // Update score
+        document.getElementById("score_value").textContent = score;
+    }
+
+    function gameOver() {
+        clearInterval(gameLoop);
+        alert("Game Over! Your score was " + score);
+        showScreen(-1); // Show menu
+    }
+
+    function showScreen(screen) {
+        document.getElementById("snake").style.display = screen === 0 ? "block" : "none";
+        document.getElementById("menu").style.display = screen === -1 ? "block" : "none";
+        document.getElementById("gameover").style.display = screen === 1 ? "block" : "none";
+        document.getElementById("setting").style.display = screen === 2 ? "block" : "none";
+    }
+
+    function newGame() {
+        clearInterval(gameLoop);
+        showScreen(0); // Show snake canvas
+        initGame();
+    }
+
+    document.getElementById("new_game").onclick = newGame;
+    document.getElementById("new_game1").onclick = newGame;
+    document.getElementById("new_game2").onclick = newGame;
+
+    window.addEventListener("keydown", function(event) {
+        if (event.code === "ArrowUp" && snakeDir !== 2) nextDir = 0;
+        if (event.code === "ArrowRight" && snakeDir !== 3) nextDir = 1;
+        if (event.code === "ArrowDown" && snakeDir !== 0) nextDir = 2;
+        if (event.code === "
