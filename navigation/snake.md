@@ -97,6 +97,7 @@ permalink: /snake/
             <br>
             <p>Speed:
                 <input id="speed1" type="radio" name="speed" value="120" checked/>
+                <label for="speed1">Very Slow</label>
                 <input id="speed2" type="radio" name="speed" value="120"/>
                 <label for="speed2">Slow</label>
                 <input id="speed3" type="radio" name="speed" value="75"/>
