@@ -7,9 +7,9 @@ permalink: /snake/
 {% include nav/home.html %}
 
 
-# Welcome to the home of my Snake! 
+# Welcome to the home of my Snake! #
 
-### Use arrow keys to control the movement of the snake
+### Use arrow keys to control the movement of the snake ###
 ###  Use settings to change the speed of the snake or disable / enable walls
 
 
