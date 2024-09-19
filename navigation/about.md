@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+comments: true
 ---
 
 <style>
@@ -81,3 +82,13 @@ Feel free to check out my [GitHub](https://github.com/mihirthaha) for my latest 
         <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
     </div>
 </div>
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="[ENTER REPO HERE]"
+        issue-term="pathname"
+        theme="icy-dark"
+        crossorigin="anonymous"
+        async>
+</script>
